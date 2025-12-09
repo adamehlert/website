@@ -8,19 +8,38 @@
       margin-left: 80px;   /* increase left margin */
       margin-right: 20px;  /* small right margin */
     }
+
+	.container {
+		display: flex;
+		gap: 40px;
+		align-items: flex-start;
+	}
+
+	.left {
+		flex: 1;
+	}
+
+	.right {
+		width: 300px;
+		flex-shrink: 0;
+	}
+
+	.right img {
+		width: 100%;
+		height: auto;
+	}
   </style>
 </head>
 <body>
+
+	<div class="container">
+
+	<div class="left">	
 	<h1>Adam Ehlert</h1>
 	<p>PhD student in Clinical Medical Ethics</p>
 	<p>
 		<a href="mailto:adamehlert@uu.se">Email</a>
 	</p>
-
-
-<hr>
-
-<img src="me.jpg" alt="Photo of Adam Ehlert" width="300">
 
 <h2>About me</h2>
 <p>
@@ -87,5 +106,14 @@
 
 <hr>
 <p><small>&copy; 2025 Adam Ehlert</small></p>
+	</div>
+
+	<div class="right">
+		
+<img src="me.jpg" alt="Photo of Adam Ehlert" width="300">
+
+	</div>
+
+	</div>
 </body>
 </html>
