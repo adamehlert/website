@@ -6,54 +6,74 @@
 </head>
 <body>
 
+<h2>Namn-generator</h2>
 <button onclick="generateName()">Generera namn</button>
 <p id="result"></p>
 
 <script>
+// --- Förnamn ---
 const firstNames = [
-"Ida","Lia","Carmen","Malin","Agne","Gisela","Lovisa","Malva","Sofia","Ella",
+"Ida","Lia","Carmen","Malin","Agne","Gisela","Lovisa","Mlava","Sofia","Ella",
 "Mathilda","Tora","Alma","Julia","Katarina","Ellen","Tova","Emma","Moa","Elin",
 "Lily","Magdalena","Ebba","My","Clara","Sheryl","Wilma","Kerstin","Ylva",
 "Irma","Ingrid","Iisa","Freja","Amanda","Emilia","Tindra","Agnes","Eda",
-"Tovalisa","Casandra","Rut","Nelyl","Nova","Kajsa","Liv",
-"Zoe","Smilla","Siri","Natalie"
+"Tovalisa","Casandra","Rut","Nelyl","Nova","Kajsa","Liv","Zoe","Smilla",
+"Siri","Natalie","Alva","Frida","Selma","Ronja","Lea","Signe","Vera","Eira"
 ];
 
+// --- Vanliga efternamn ---
 const normalLastNames = [
-"Maria","Noreblad","Persson","Larsson","Liljekvist","Blombäck","Gustavsson",
-"Johansson","Holmström","Isaksson","Svensson","Tagesson","Stenström",
-"Hammarström","Sandberg","Lindberg","Dahlqvist","Andersson","Ohlsson",
-"Brunér","Rytterholm","Sandvik","Ekberg","Bondesson","Liljeqvist",
-"Karlsson","Nilsson","Eriksson","Lundberg","Bergström",
-"Nyström","Björkman","Åberg","Forsberg","Lindström"
+"Andersson","Johansson","Nilsson","Eriksson","Larsson","Olsson","Persson",
+"Lindberg","Bergström","Nyström","Björkman","Åberg","Forsberg","Lindström",
+"Svensson","Karlsson","Noreblad","Tagesson","Stenström","Hammarström","Sandberg",
+"Dahlqvist","Ohlsson","Brunér","Rytterholm","Sandvik","Ekberg","Bondesson",
+"Liljeqvist","Holmström","Isaksson","Gustavsson","Liljekvist","Blombäck","Maria",
+"Nyberg","Nordström","Engström","Sjöberg","Hedlund","Lundquist","Hedström"
 ];
 
+// --- Konstiga/udda efternamn ---
 const weirdLastNames = [
 "Trölle","Cederberg","Fjeldstad","Orraryd","Niesel","Tillander","Wesling",
 "Blauert","Lindarp","Blanco","Askanius","Risholm","Martel","Lundberg",
-"Göteborg","Adebäck","Zlatan","Crona","Peng","Noé","Glaser","Danell",
-"Busk","Mannheimer","Siffert","Brus","Stening","Rytterholm","Mannertorn",
-"Jernspets","Tael","Maronsi","Kolsmyr","Powell","Baralt","Hammarsköljd",
-"Persliden","Flygt","Kikkoman","De Geer","Amazon","Pharmansson",
-"Filipovic","Törring",
-
-// dina nya
-"Nordkusten","Stadsholm","Vintervik","Skärgård","Polcirkeln","Havsmark",
-"Peppar","Saltkar","Aberdeen","DeFoe","Aerobics","Alfresco","Alzheimer",
-"Bleckhard","Kvarg","Ikaros","Antwerpen"
+"Göteborg","Adebäck","Zlatan","Crona","Peng","Noé","Glaser","Danell","Busk",
+"Mannheimer","Siffert","Brus","Stening","Rytterholm","Mannertorn","Jernspets",
+"Tael","Maronsi","Kolsmyr","Powell","Baralt","Hammarsköljd","Persliden","Flygt",
+"Kikkoman","De Geer","Amazon","Pharmansson","Filipovic","Törring","Nordkusten",
+"Stadsholm","Vintervik","Skärgård","Polcirkeln","Havsmark","Peppar","Saltkar",
+"Aberdeen","DeFoe","Aerobics","Alfresco","Alzheimer","Bleckhard","Kvarg",
+"Ikaros","Antwerpen","Silfverhjelm","Rosencrantz","Stålhammar","Leijonflycht",
+"Tersmeden","Gyldenstolpe","Adelcreutz","Stiernhielm","Wachtmeister","Nattkrona"
 ];
 
 function randomItem(list) {
-return list[Math.floor(Math.random()*list.length)];
+    return list[Math.floor(Math.random() * list.length)];
+}
+
+// Skapar egna förnamn ibland
+function makeFakeFirstName() {
+    const n1 = randomItem(firstNames);
+    const n2 = randomItem(firstNames);
+    const part1 = n1.slice(0, Math.ceil(n1.length/2));
+    const part2 = n2.slice(Math.floor(n2.length/2));
+    return part1 + part2;
 }
 
 function generateName() {
-const first = randomItem(firstNames);
-const last1 = randomItem(normalLastNames);
-const last2 = randomItem(weirdLastNames);
+    // Förnamn: ibland nytt
+    let first;
+    if (Math.random() < 0.3) {
+        first = makeFakeFirstName();
+    } else {
+        first = randomItem(firstNames);
+    }
 
-document.getElementById("result").textContent =
-first + " " + last1 + " " + last2;
+    // Efternamn: slumpa kategori för varje position
+    const categories = [normalLastNames, weirdLastNames];
+    const last1 = randomItem(randomItem(categories));
+    const last2 = randomItem(randomItem(categories));
+
+    document.getElementById("result").textContent =
+        first + " " + last1 + " " + last2;
 }
 </script>
 
